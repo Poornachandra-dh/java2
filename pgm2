@@ -1,3 +1,100 @@
+8.// Account interface
+interface Account {
+    void deposit(double amount);
+    void withdraw(double amount);
+    double getBalance();
+}
+
+// HDFCAccount class implementing Account
+class HDFCAccount implements Account {
+    private double deposits;
+    private double withdrawals;
+
+    public HDFCAccount() {
+        this.deposits = 0;
+        this.withdrawals = 0;
+    }
+
+    @Override
+    public void deposit(double amount) {
+        if (amount > 0) {
+            deposits += amount;
+        }
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= getBalance()) {
+            withdrawals += amount;
+        }
+    }
+
+    @Override
+    public double getBalance() {
+        return deposits - withdrawals;
+    }
+}
+
+// StatebankAccount class implementing Account
+class StatebankAccount implements Account {
+    private double balance;
+
+    public StatebankAccount() {
+        this.balance = 0;
+    }
+
+    @Override
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+        }
+    }
+
+    @Override
+    public double getBalance() {
+        return balance;
+    }
+}
+
+// Main class to demonstrate functionality
+public class Main {
+    // Method to print balance of an Account
+    public static void printBalance(Account account) {
+        System.out.println("Balance: " + account.getBalance());
+    }
+
+    public static void main(String[] args) {
+        // Create HDFCAccount and StatebankAccount instances
+        Account hdfcAccount = new HDFCAccount();
+        Account statebankAccount = new StatebankAccount();
+
+        // Perform operations on HDFCAccount
+        hdfcAccount.deposit(1000);
+        hdfcAccount.withdraw(200);
+
+        // Perform operations on StatebankAccount
+        statebankAccount.deposit(1500);
+        statebankAccount.withdraw(500);
+
+        // Print balances using the printBalance method
+        System.out.println("HDFC Account:");
+        printBalance(hdfcAccount);
+
+        System.out.println("\nStatebank Account:");
+        printBalance(statebankAccount);
+    }
+}
+
+
+
+
 7.  class Circle {
     // Member variables
     protected double radius;
